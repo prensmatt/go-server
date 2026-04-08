@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f2ec;
+      --surface: #ffffff;
+      --ink: #1a1714;
+      --muted: #7a736b;
+      --accent: #c84b2f;
+      --border: #ddd8d0;
+      --radius: 6px;
+      --shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 480px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-header { margin-bottom: 2rem; }
+    .card-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .card-header p {
+      margin-top: 0.4rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .form-group { margin-bottom: 1.25rem; }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: #fdfcfb;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200, 75, 47, 0.12);
+    }
+
+    textarea { resize: vertical; min-height: 110px; }
+
+    .row { display: flex; gap: 1rem; }
+    .row .form-group { flex: 1; }
+
+    .form-group.checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+    .form-group.checkbox-group input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+      margin-top: 0.15rem;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+    .form-group.checkbox-group label {
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 0.5rem;
+    }
+    .btn:hover  { background: #b03d24; }
+    .btn:active { transform: scale(0.98); }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+
+    .success-msg {
+      display: none;
+      background: #edf7f0;
+      border: 1.5px solid #6dbf8a;
+      color: #2a7a4b;
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .error {
+      border-color: var(--accent) !important;
+    }
+    .error-msg {
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-top: 0.3rem;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <h1>Get in Touch</h1>
+    <p>Fill out the form and we'll get back to you shortly.</p>
+  </div>
+
+  <form id="contactForm" novalidate>
+
+    <div class="row">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Jane" autocomplete="given-name" />
+        <div class="error-msg" id="firstNameErr">Required</div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Doe" autocomplete="family-name" />
+        <div class="error-msg" id="lastNameErr">Required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="jane@example.com" autocomplete="email" />
+      <div class="error-msg" id="emailErr">Enter a valid email address</div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone (optional)</label>
+      <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" autocomplete="tel" />
+    </div>
+
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <select id="subject" name="subject">
+        <option value="" disabled selected>Choose a topic…</option>
+        <option value="general">General Inquiry</option>
+        <option value="support">Technical Support</option>
+        <option value="billing">Billing</option>
+        <option value="other">Other</option>
+      </select>
+      <div class="error-msg" id="subjectErr">Please select a topic</div>
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="How can we help you?"></textarea>
+      <div class="error-msg" id="messageErr">Please enter a message</div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="form-group checkbox-group">
+      <input type="checkbox" id="consent" name="consent" />
+      <label for="consent">I agree to the <a href="#" style="color:var(--accent)">Privacy Policy</a> and consent to be contacted.</label>
+    </div>
+    <div class="error-msg" id="consentErr" style="margin-top:-0.8rem; margin-bottom:0.5rem;">You must agree to continue</div>
+
+    <button type="submit" class="btn">Send Message</button>
+
+    <div class="success-msg" id="successMsg">
+      ✓ Message sent! We'll be in touch soon.
+    </div>
+
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('contactForm');
+
+  function showError(inputId, errId, show) {
+    const el = document.getElementById(inputId);
+    const err = document.getElementById(errId);
+    el.classList.toggle('error', show);
+    err.style.display = show ? 'block' : 'none';
+  }
+
+  function validate() {
+    let valid = true;
+
+    const fn = document.getElementById('firstName').value.trim();
+    showError('firstName', 'firstNameErr', !fn); if (!fn) valid = false;
+
+    const ln = document.getElementById('lastName').value.trim();
+    showError('lastName', 'lastNameErr', !ln); if (!ln) valid = false;
+
+    const em = document.getElementById('email').value.trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em);
+    showError('email', 'emailErr', !emailOk); if (!emailOk) valid = false;
+
+    const sub = document.getElementById('subject').value;
+    showError('subject', 'subjectErr', !sub); if (!sub) valid = false;
+
+    const msg = document.getElementById('message').value.trim();
+    showError('message', 'messageErr', !msg); if (!msg) valid = false;
+
+    const consent = document.getElementById('consent').checked;
+    document.getElementById('consentErr').style.display = consent ? 'none' : 'block';
+    if (!consent) valid = false;
+
+    return valid;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) return;
+
+    // ---- Replace this block with your actual server call ----
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    console.log('Form payload:', payload);
+
+    // Example fetch to your server:
+    // fetch('/api/contact', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(payload)
+    // }).then(r => r.json()).then(console.log);
+    // ---------------------------------------------------------
+
+    document.getElementById('successMsg').style.display = 'block';
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
